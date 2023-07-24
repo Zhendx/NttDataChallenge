@@ -1,6 +1,7 @@
 package com.nttdata.bank.account.models.entity;
 
 
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +10,14 @@ import java.util.Date;
 @Getter
 @Setter
 public class MovementTrans {
-    private String account_number;
-    private String account_type;
+    @Column(name = "account_number")
+    private String accountNumber;
+    @Column(name = "account_type")
+    private String accountType;
     private Double balance;
     private Double value;
     private Boolean state;
-    private String type_movement;
+    @Column(name = "type_movement")
+    private String typeMovement;
     private Date date;
 }

@@ -47,37 +47,37 @@ public class MovementServiceImpl implements IMovement {
     public MovementTrans update(MovementTrans movementTrans){
         Movement movement = new Movement();
         MovementTrans movementTransResponse = new MovementTrans();
-        Account account = accountRep.findByPublishedAccountNumber(movementTrans.getAccount_number(), movementTrans.getAccount_type());
+        Account account = accountRep.findByPublishedAccountNumber(movementTrans.getAccountNumber(), movementTrans.getAccountType());
         if (Objects.isNull(account)) {
 
         }else {
-            if (movementTrans.getType_movement().equals("Retiro")) {
-                if (account.getOpening_balance() == 0) {
+            if (movementTrans.getTypeMovement().equals("Retiro")) {
+                if (account.getOpeningBalance() == 0) {
                     System.out.println("Error; ");
                 } else {
-                    if (account.getOpening_balance() >= movementTrans.getValue()) {
-                        double num = account.getOpening_balance() - movementTrans.getValue();
+                    if (account.getOpeningBalance() >= movementTrans.getValue()) {
+                        double num = account.getOpeningBalance() - movementTrans.getValue();
                         movement.setBalance(num);
                         movementTransResponse.setBalance(num);
                     }
                 }
             }
-            if (movementTrans.getType_movement().equals("Deposito")) {
-                double num = account.getOpening_balance() + movementTrans.getValue();
+            if (movementTrans.getTypeMovement().equals("Deposito")) {
+                double num = account.getOpeningBalance() + movementTrans.getValue();
                 movement.setBalance(num);
                 movementTransResponse.setBalance(num);
             }
 
-            movement.setTypeMovement(movementTrans.getType_movement());
+            movement.setTypeMovement(movementTrans.getTypeMovement());
             movement.setDate((java.sql.Date) movementTrans.getDate());
             movement.setValue(movementTrans.getValue());
             movement.setIdclient(account.getIdclient());
 
-            movementTransResponse.setAccount_number(movementTrans.getAccount_number());
-            movementTransResponse.setAccount_type(movementTrans.getAccount_type());
+            movementTransResponse.setAccountNumber(movementTrans.getAccountNumber());
+            movementTransResponse.setAccountType(movementTrans.getAccountType());
             movementTransResponse.setState(account.getState());
             movementTransResponse.setValue(movementTrans.getValue());
-            movementTransResponse.setType_movement(movementTrans.getType_movement() + " de " + movementTrans.getValue());
+            movementTransResponse.setTypeMovement(movementTrans.getTypeMovement() + " de " + movementTrans.getValue());
             movementTransResponse.setDate(movementTrans.getDate());
         }
         movementRep.save(movement);

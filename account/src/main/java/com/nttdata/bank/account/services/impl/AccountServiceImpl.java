@@ -17,7 +17,8 @@ public class AccountServiceImpl implements IAccount {
     private final AccountRepository accountRep;
     @Override
     public List<AccountResponseDTO> getAllAccounts(){
-        return AccountMapper.INSTANCE.listAccountToListAccountResponse(accountRep.findAll());
+        //return AccountMapper.INSTANCE.listAccountToListAccountResponse(accountRep.findAll());
+        return null;
     };
     @Override
     public AccountResponseDTO getById(int id){
@@ -31,9 +32,9 @@ public class AccountServiceImpl implements IAccount {
     @Override
     public AccountResponseDTO update(int id, AccountRequestDTO accountRequestDTO){
         Account account = accountRep.findById(id).orElseGet(Account::new);
-        account.setAccount_number(accountRequestDTO.getAccount_number());
-        account.setAccount_type(accountRequestDTO.getAccount_type());
-        account.setOpening_balance(accountRequestDTO.getOpening_balance());
+        account.setAccountNumber(accountRequestDTO.getAccount_number());
+        account.setAccountType(accountRequestDTO.getAccount_type());
+        account.setOpeningBalance(accountRequestDTO.getOpening_balance());
         account.setState(accountRequestDTO.getState());
         account.setIdclient(accountRequestDTO.getIdclient());
         return AccountMapper.INSTANCE.accountToAccountResponse(accountRep.save(account));

@@ -12,10 +12,12 @@ public class Account {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private int id;
-
-    private String account_number;
-    private String account_type;
-    private Double opening_balance;
+    @Column(name = "account_number")
+    private String accountNumber;
+    @Column(name = "account_type")
+    private String accountType;
+    @Column(name = "opening_balance")
+    private Double openingBalance;
     private Boolean state;
     private int idclient;
 }

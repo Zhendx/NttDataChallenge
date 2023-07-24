@@ -17,6 +17,7 @@ public class Movement {
 
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(name = "type_movement")
     private String typeMovement;
     private Double balance;
     private Double value;

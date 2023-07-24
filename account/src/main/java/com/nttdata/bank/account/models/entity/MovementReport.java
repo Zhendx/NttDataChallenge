@@ -12,10 +12,10 @@ import java.util.Date;
 public class MovementReport {
     private Date date;
     private String name;
-    /*private String accountNumber;
+    private String typeMovement;
+    private String accountNumber;
     private String accountType;
     private Double openingBalance;
-    private Boolean state;*/
-    private String typeMovement;
+    private Boolean state;
    // private Double availableBalance;
 }

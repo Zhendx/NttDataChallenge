@@ -16,10 +16,10 @@ import java.util.List;
 
 @Repository
 public interface MovementRepository extends CrudRepository<Movement, Integer> {
-    @Query(value = "SELECT t FROM Account t WHERE t.account_number=?1 AND t.account_type=?2")
+    @Query(value = "SELECT t FROM Account t WHERE t.accountNumber=?1 AND t.accountType=?2")
     Account findByPublishedAccountNumber(String accountNumber, String accountType);
-    @Query(value = "SELECT new com.nttdata.bank.account.models.entity.MovementReport(m.date, c.name, m.typeMovement) " +
-            "FROM Movement m JOIN Client c ON c.id =  m.idclient " +
+    @Query(value = "SELECT new com.nttdata.bank.account.models.entity.MovementReport(m.date, c.name, m.typeMovement, a.accountNumber, a.accountType, a.openingBalance, a.state) " +
+            "FROM Movement m JOIN Client c ON c.id =  m.idclient JOIN Account a ON c.id = a.idclient " +
             "WHERE m.date BETWEEN ?1 AND ?2")
     List<MovementReport> getMovementReport(Date dateInitial, Date dateFinal, Integer id);
     @Query(value = "SELECT c FROM Client c where c.id=?1")
