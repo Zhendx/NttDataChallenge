@@ -2,6 +2,8 @@ package com.nttdata.bank.account.services.impl;
 
 import com.nttdata.bank.account.dto.MovementRequestDTO;
 import com.nttdata.bank.account.dto.MovementResponseDTO;
+import com.nttdata.bank.account.error.AppException;
+import com.nttdata.bank.account.error.ConstantError;
 import com.nttdata.bank.account.mapper.MovementMapper;
 import com.nttdata.bank.account.models.entity.*;
 import com.nttdata.bank.account.repository.AccountRepository;
@@ -22,54 +24,73 @@ public class MovementServiceImpl implements IMovement {
     private final AccountRepository accountRep;
     @Override
     public List<MovementResponseDTO> getAllMovements(){
-        //return MovementMapper.INSTANCE.listMovementToListMovementResponse(movementRep.findAll());
-        return  null;
+        return MovementMapper.INSTANCE.listMovementToListMovementResponse(movementRep.findAll());
     };
     @Override
-    public List<MovementReport> getAllRange(int id, Date dateInitial, Date dateFinal){
-        //List<MovementReport> movementReportList = new ArrayList<>();
+    public List<MovementReportValue> getReport(int id, Date dateInitial, Date dateFinal){
+        List<MovementReportValue> movementReportValueList = new ArrayList<>();
         List<MovementReport> movement = movementRep.getMovementReport(dateInitial, dateFinal, id);
-        /*for(Movement movementTemp : movement){
-            MovementReport movementReport = new MovementReport();
-            movementReport.setDate(movementTemp.getDate());
-            movementReport.setName(movementTemp.get());
-            movementReport.setAccount_number(account.getAccount_number());
-            movementReport.setAccount_type(account.getAccount_type());
-            movementReport.setOpening_balance(account.getOpening_balance());
-            movementReport.setState(account.getState());
-            movementReport.setMovement_type(movementTemp.getValue());
-            movementReport.setAvailable_balance(movementTemp.getBalance());
-            movementReportList.add(movementReport);
-        }*/
-        return movement;
+        for(MovementReport movementTemp : movement){
+            MovementReportValue movementReportValue = new MovementReportValue();
+            movementReportValue.setDate(movementTemp.getDate());
+            movementReportValue.setName(movementTemp.getName());
+            movementReportValue.setAccountNumber(movementTemp.getAccountNumber());
+            movementReportValue.setAccountType(movementTemp.getAccountType());
+            movementReportValue.setBalance(movementTemp.getBalance());
+            movementReportValue.setState(movementTemp.getState());
+            movementReportValue.setTypeMovement(movementTemp.getTypeMovement());
+            movementReportValue.setValue(movementTemp.getValue());
+            if (movementTemp.getTypeMovement().equals("Retiro")){
+                movementReportValue.setAvailableBalance(movementTemp.getBalance() - movementTemp.getValue());
+            }else{
+                movementReportValue.setAvailableBalance(movementTemp.getBalance() + movementTemp.getValue());
+            }
+            movementReportValueList.add(movementReportValue);
+        }
+        return movementReportValueList;
     };
     @Override
-    public MovementTrans update(MovementTrans movementTrans){
+    public MovementTrans getTransaction(MovementTrans movementTrans){
         Movement movement = new Movement();
         MovementTrans movementTransResponse = new MovementTrans();
         Account account = accountRep.findByPublishedAccountNumber(movementTrans.getAccountNumber(), movementTrans.getAccountType());
+        Movement movementId = movementRep.findByMovement(account.getIdclient());
         if (Objects.isNull(account)) {
-
+            throw new AppException(ConstantError.errorApp);
         }else {
-            if (movementTrans.getTypeMovement().equals("Retiro")) {
+            String typeMovement = movementTrans.getTypeMovement();
+            if (typeMovement.equals("Retiro")) {
                 if (account.getOpeningBalance() == 0) {
-                    System.out.println("Error; ");
+                    throw new AppException(ConstantError.errorApp1);
                 } else {
-                    if (account.getOpeningBalance() >= movementTrans.getValue()) {
-                        double num = account.getOpeningBalance() - movementTrans.getValue();
-                        movement.setBalance(num);
-                        movementTransResponse.setBalance(num);
+                    if (Objects.isNull(movementId)){
+                        if (account.getOpeningBalance() >= movementTrans.getValue()){
+                            double num = account.getOpeningBalance() - movementTrans.getValue();
+                            movement.setBalance(num);
+                            movementTransResponse.setBalance(num);
+                        }
+                    }else{
+                        if (movementId.getBalance() >= movementTrans.getValue()){
+                            double num = movementId.getBalance() - movementTrans.getValue();
+                            movement.setBalance(num);
+                            movementTransResponse.setBalance(num);
+                        }
                     }
                 }
-            }
-            if (movementTrans.getTypeMovement().equals("Deposito")) {
-                double num = account.getOpeningBalance() + movementTrans.getValue();
-                movement.setBalance(num);
-                movementTransResponse.setBalance(num);
+            }else{
+                if (Objects.isNull(movementId)){
+                    double num = account.getOpeningBalance() + movementTrans.getValue();
+                    movement.setBalance(num);
+                    movementTransResponse.setBalance(num);
+                }else{
+                    double num = movementId.getBalance() + movementTrans.getValue();
+                    movement.setBalance(num);
+                    movementTransResponse.setBalance(num);
+                }
             }
 
             movement.setTypeMovement(movementTrans.getTypeMovement());
-            movement.setDate((java.sql.Date) movementTrans.getDate());
+            movement.setDate(movementTrans.getDate());
             movement.setValue(movementTrans.getValue());
             movement.setIdclient(account.getIdclient());
 

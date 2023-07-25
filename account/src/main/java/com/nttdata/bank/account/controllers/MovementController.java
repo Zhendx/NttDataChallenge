@@ -3,6 +3,7 @@ package com.nttdata.bank.account.controllers;
 import com.nttdata.bank.account.dto.MovementRequestDTO;
 import com.nttdata.bank.account.dto.MovementResponseDTO;
 import com.nttdata.bank.account.models.entity.MovementReport;
+import com.nttdata.bank.account.models.entity.MovementReportValue;
 import com.nttdata.bank.account.models.entity.MovementTrans;
 import com.nttdata.bank.account.services.IMovement;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,11 @@ public class MovementController {
         return ResponseEntity.ok(movementService.getAllMovements());
     }
     @GetMapping("/report")
-    public ResponseEntity<List<MovementReport>> listMovementRangeDate(@RequestParam int id, @RequestParam Date dateInitial, @RequestParam Date dateFinal){
-        return ResponseEntity.ok(movementService.getAllRange(id, dateInitial, dateFinal));
+    public ResponseEntity<List<MovementReportValue>> listMovementRangeDate(@RequestParam int id, @RequestParam Date dateInitial, @RequestParam Date dateFinal){
+        return ResponseEntity.ok(movementService.getReport(id, dateInitial, dateFinal));
     }
     @PostMapping("/transaction")
     private ResponseEntity<MovementTrans> transactionMovement(@RequestBody MovementTrans movementTrans){
-        return ResponseEntity.ok(movementService.update(movementTrans));
+        return ResponseEntity.ok(movementService.getTransaction(movementTrans));
     }
 }

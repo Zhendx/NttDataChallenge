@@ -17,8 +17,7 @@ public class AccountServiceImpl implements IAccount {
     private final AccountRepository accountRep;
     @Override
     public List<AccountResponseDTO> getAllAccounts(){
-        //return AccountMapper.INSTANCE.listAccountToListAccountResponse(accountRep.findAll());
-        return null;
+        return AccountMapper.INSTANCE.listAccountToListAccountResponse(accountRep.findAll());
     };
     @Override
     public AccountResponseDTO getById(int id){
