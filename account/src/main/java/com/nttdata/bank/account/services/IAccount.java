@@ -10,7 +10,7 @@ public interface IAccount {
     IAccount INSTANCE = Mappers.getMapper(IAccount.class);
     List<AccountResponseDTO> getAllAccounts();
     AccountResponseDTO getById(int id);
-    AccountResponseDTO create(AccountRequestDTO personRequestDTO);
-    AccountResponseDTO update(int id, AccountRequestDTO personRequestDTO);
+    AccountResponseDTO create(AccountRequestDTO accountRequestDTO);
+    AccountResponseDTO update(int id, AccountRequestDTO accountRequestDTO);
     void deleteById(int id);
 }

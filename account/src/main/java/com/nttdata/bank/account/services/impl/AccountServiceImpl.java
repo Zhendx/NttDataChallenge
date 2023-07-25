@@ -2,6 +2,8 @@ package com.nttdata.bank.account.services.impl;
 
 import com.nttdata.bank.account.dto.AccountRequestDTO;
 import com.nttdata.bank.account.dto.AccountResponseDTO;
+import com.nttdata.bank.account.error.AppException;
+import com.nttdata.bank.account.error.ConstantError;
 import com.nttdata.bank.account.mapper.AccountMapper;
 import com.nttdata.bank.account.models.entity.Account;
 import com.nttdata.bank.account.repository.AccountRepository;
@@ -21,7 +23,7 @@ public class AccountServiceImpl implements IAccount {
     };
     @Override
     public AccountResponseDTO getById(int id){
-        return AccountMapper.INSTANCE.accountToAccountResponse(accountRep.findById(id).orElseGet(null));
+        return AccountMapper.INSTANCE.accountToAccountResponse(accountRep.findById(id).orElseThrow(()-> new AppException(ConstantError.errorAccountApp)));
     };
     @Override
     public AccountResponseDTO create(AccountRequestDTO accountRequestDTO){
@@ -31,9 +33,9 @@ public class AccountServiceImpl implements IAccount {
     @Override
     public AccountResponseDTO update(int id, AccountRequestDTO accountRequestDTO){
         Account account = accountRep.findById(id).orElseGet(Account::new);
-        account.setAccountNumber(accountRequestDTO.getAccount_number());
-        account.setAccountType(accountRequestDTO.getAccount_type());
-        account.setOpeningBalance(accountRequestDTO.getOpening_balance());
+        account.setAccountNumber(accountRequestDTO.getAccountNumber());
+        account.setAccountType(accountRequestDTO.getAccountType());
+        account.setOpeningBalance(accountRequestDTO.getOpeningBalance());
         account.setState(accountRequestDTO.getState());
         account.setIdclient(accountRequestDTO.getIdclient());
         return AccountMapper.INSTANCE.accountToAccountResponse(accountRep.save(account));

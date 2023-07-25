@@ -12,7 +12,7 @@ public class MovementRequestDTO {
     private int id;
 
     private Date date;
-    private String type_movement;
+    private String typeMovement;
     private Double balance;
     private Double value;
     private int idclient;

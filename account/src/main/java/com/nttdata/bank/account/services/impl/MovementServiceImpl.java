@@ -27,6 +27,29 @@ public class MovementServiceImpl implements IMovement {
         return MovementMapper.INSTANCE.listMovementToListMovementResponse(movementRep.findAll());
     };
     @Override
+    public MovementResponseDTO getById(int id){
+        return MovementMapper.INSTANCE.movementToMovementResponse(movementRep.findById(id).orElseThrow(()-> new AppException(ConstantError.errorApp2)));
+    };
+    @Override
+    public MovementResponseDTO create(MovementRequestDTO movementRequestDTO){
+        Movement movement = movementRep.save(MovementMapper.INSTANCE.movementRequestToMovementCreate(movementRequestDTO));
+        return MovementMapper.INSTANCE.movementToMovementResponse(movement);
+    }
+    @Override
+    public MovementResponseDTO update(int id, MovementRequestDTO movementRequestDTO){
+        Movement movement = movementRep.findById(id).orElseThrow(()-> new AppException(ConstantError.errorApp2));
+        movement.setDate(movementRequestDTO.getDate());
+        movement.setTypeMovement(movementRequestDTO.getTypeMovement());
+        movement.setValue(movementRequestDTO.getValue());
+        movement.setBalance(movementRequestDTO.getBalance());
+        movement.setIdclient(movementRequestDTO.getIdclient());
+        return MovementMapper.INSTANCE.movementToMovementResponse(movementRep.save(movement));
+    }
+    @Override
+    public void deleteById(int id){
+        movementRep.deleteById((int) id);
+    }
+    @Override
     public List<MovementReportValue> getReport(int id, Date dateInitial, Date dateFinal){
         List<MovementReportValue> movementReportValueList = new ArrayList<>();
         List<MovementReport> movement = movementRep.getMovementReport(dateInitial, dateFinal, id);

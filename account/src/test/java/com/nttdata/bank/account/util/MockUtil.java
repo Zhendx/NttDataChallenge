@@ -16,9 +16,9 @@ public class MockUtil {
     public static Account buildAccount(){
         Account account = new Account();
         account.setId(1);
-        account.setAccount_type("Ahorro");
-        account.setAccount_number("281516");
-        account.setOpening_balance(3205.00);
+        account.setAccountType("Ahorro");
+        account.setAccountNumber("281516");
+        account.setOpeningBalance(3205.00);
         account.setState(true);
         account.setIdclient(1);
         return account;
@@ -26,9 +26,9 @@ public class MockUtil {
     public static AccountRequestDTO buildAccountReq(){
         AccountRequestDTO accountReq = new AccountRequestDTO();
         accountReq.setId(1);
-        accountReq.setAccount_type("Ahorro");
-        accountReq.setAccount_number("281516");
-        accountReq.setOpening_balance(3205.25);
+        accountReq.setAccountType("Ahorro");
+        accountReq.setAccountNumber("281516");
+        accountReq.setOpeningBalance(3205.25);
         accountReq.setState(true);
         return accountReq;
     }
@@ -41,9 +41,9 @@ public class MockUtil {
     public static AccountResponseDTO buildAccountRes(){
         AccountResponseDTO accountReq = new AccountResponseDTO();
         accountReq.setId(1);
-        accountReq.setAccount_type("Ahorro");
-        accountReq.setAccount_number("281516");
-        accountReq.setOpening_balance(3205.00);
+        accountReq.setAccountType("Ahorro");
+        accountReq.setAccountNumber("281516");
+        accountReq.setOpeningBalance(3205.00);
         accountReq.setState(true);
         return accountReq;
     }

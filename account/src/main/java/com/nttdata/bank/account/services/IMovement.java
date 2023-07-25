@@ -1,5 +1,7 @@
 package com.nttdata.bank.account.services;
 
+import com.nttdata.bank.account.dto.AccountRequestDTO;
+import com.nttdata.bank.account.dto.AccountResponseDTO;
 import com.nttdata.bank.account.dto.MovementRequestDTO;
 import com.nttdata.bank.account.dto.MovementResponseDTO;
 import com.nttdata.bank.account.models.entity.MovementReport;
@@ -13,6 +15,10 @@ import java.util.List;
 public interface IMovement {
     IMovement INSTANCE = Mappers.getMapper(IMovement.class);
     List<MovementResponseDTO> getAllMovements();
+    MovementResponseDTO getById(int id);
+    MovementResponseDTO create(MovementRequestDTO movementRequestDTO);
+    MovementResponseDTO update(int id, MovementRequestDTO movementRequestDTO);
+    void deleteById(int id);
     List<MovementReportValue> getReport(int id, Date dateInitial, Date dateFinal);
     MovementTrans getTransaction(MovementTrans movementTrans);
 }

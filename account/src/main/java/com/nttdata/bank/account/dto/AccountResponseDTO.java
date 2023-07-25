@@ -9,9 +9,9 @@ import java.io.Serializable;
 public class AccountResponseDTO implements Serializable {
     private int id;
 
-    private String account_number;
-    private String account_type;
-    private Double opening_balance;
+    private String accountNumber;
+    private String accountType;
+    private Double openingBalance;
     private Boolean state;
     private int idclient;
 }

@@ -1,14 +1,10 @@
 package com.nttdata.bank.account.repository;
 
 import com.nttdata.bank.account.models.entity.Account;
-import com.nttdata.bank.account.models.entity.Client;
 import com.nttdata.bank.account.models.entity.Movement;
 import com.nttdata.bank.account.models.entity.MovementReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
