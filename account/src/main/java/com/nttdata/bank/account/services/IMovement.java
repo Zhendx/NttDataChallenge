@@ -13,7 +13,6 @@ import java.sql.Date;
 import java.util.List;
 
 public interface IMovement {
-    IMovement INSTANCE = Mappers.getMapper(IMovement.class);
     List<MovementResponseDTO> getAllMovements();
     MovementResponseDTO getById(int id);
     MovementResponseDTO create(MovementRequestDTO movementRequestDTO);

@@ -31,7 +31,7 @@ public class MovementController {
     public ResponseEntity<MovementResponseDTO> createMovement(@RequestBody MovementRequestDTO movementRequestDTO){
         return ResponseEntity.ok(movementService.create(movementRequestDTO));
     }
-    @PostMapping("/{id}update")
+    @PostMapping("/{id}/update")
     public ResponseEntity<MovementResponseDTO> updateMovement(@PathVariable int id, @RequestBody MovementRequestDTO movementRequestDTO){
         return ResponseEntity.ok(movementService.update(id, movementRequestDTO));
     }

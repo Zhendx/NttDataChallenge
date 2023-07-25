@@ -7,7 +7,6 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 public interface IAccount {
-    IAccount INSTANCE = Mappers.getMapper(IAccount.class);
     List<AccountResponseDTO> getAllAccounts();
     AccountResponseDTO getById(int id);
     AccountResponseDTO create(AccountRequestDTO accountRequestDTO);

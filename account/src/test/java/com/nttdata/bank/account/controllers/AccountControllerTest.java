@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class AccountControllerTest {
@@ -19,7 +20,7 @@ class AccountControllerTest {
     @InjectMocks
     AccountController accountController;
     @Mock
-    private IAccount accountService;
+    public IAccount accountService;
 
     @Test
     void listAccounts() {
