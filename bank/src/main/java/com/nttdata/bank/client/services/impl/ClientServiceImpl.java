@@ -34,7 +34,7 @@ public class ClientServiceImpl implements IClient {
     }
     @Override
     public ClientResponseDTO update(int id, ClientRequestDTO clientRequestDTO){
-        Client client = clientRep.findById(id).orElseGet(Client::new);
+        Client client = clientRep.findById(id).orElseThrow(() -> new AppException(ConstantError.errorApp1));
         client.setState(clientRequestDTO.getState());
         client.setPassword(clientRequestDTO.getPassword());
         client.setName(clientRequestDTO.getName());

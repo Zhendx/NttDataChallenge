@@ -47,6 +47,8 @@ class ClientServiceImplTest {
 
     @Test
     void update() {
+        Mockito.when(clientRep.findById(Mockito.any()))
+                .thenReturn(Optional.of(MockUtil.buildClient()));
         Mockito.when(clientRep.save(Mockito.any()))
                 .thenReturn(MockUtil.buildClient());
         Assertions.assertNotNull(clientService.update( 1 ,MockUtil.buildClientReq()));
