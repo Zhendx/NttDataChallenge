@@ -1,13 +1,10 @@
 package com.nttdata.bank.account.services;
 
-import com.nttdata.bank.account.dto.AccountRequestDTO;
-import com.nttdata.bank.account.dto.AccountResponseDTO;
 import com.nttdata.bank.account.dto.MovementRequestDTO;
 import com.nttdata.bank.account.dto.MovementResponseDTO;
-import com.nttdata.bank.account.models.entity.MovementReport;
 import com.nttdata.bank.account.models.entity.MovementReportValue;
 import com.nttdata.bank.account.models.entity.MovementTrans;
-import org.mapstruct.factory.Mappers;
+
 
 import java.sql.Date;
 import java.util.List;
