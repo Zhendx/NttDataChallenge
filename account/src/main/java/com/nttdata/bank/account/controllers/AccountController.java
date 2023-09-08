@@ -3,7 +3,6 @@ package com.nttdata.bank.account.controllers;
 import com.nttdata.bank.account.dto.AccountRequestDTO;
 import com.nttdata.bank.account.dto.AccountResponseDTO;
 import com.nttdata.bank.account.services.IAccount;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

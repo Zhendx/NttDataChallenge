@@ -21,7 +21,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MovementServiceImpl implements IMovement {
     private final MovementRepository movementRep;
-    private final AccountRepository accountRep;
+    private AccountRepository accountRep;
     @Override
     public List<MovementResponseDTO> getAllMovements(){
         return MovementMapper.INSTANCE.listMovementToListMovementResponse(movementRep.findAll());
@@ -45,6 +45,7 @@ public class MovementServiceImpl implements IMovement {
         movement.setIdclient(movementRequestDTO.getIdclient());
         return MovementMapper.INSTANCE.movementToMovementResponse(movementRep.save(movement));
     }
+
     @Override
     public void deleteById(int id){
         movementRep.deleteById((int) id);

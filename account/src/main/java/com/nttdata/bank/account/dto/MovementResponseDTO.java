@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 public class MovementResponseDTO {
     private int id;
-
     private Date date;
     private String typeMovement;
     private Double balance;
